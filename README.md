@@ -1,5 +1,7 @@
 # Bare Framework.
 
+[![MIT LICENSE](https://img.shields.io/github/license/heinthanth/bare)](LICENSE)
+
 Simple, Lightweight PHP micro-framework, without additional packages. \
 Built with PHP core-features out of the box.
 
@@ -21,7 +23,7 @@ This will make this repo alive at <http://localhost:8000>
 ## Core Features
 
 Everything is written from scratch. No external dependencies. \
-Just hack it as what you need. I just shipped `bare` with simple Router and some utilities.
+Just hack it as what you need. I just shipped `bare` with simple regex Router and some utilities.
 
 
 ## License
