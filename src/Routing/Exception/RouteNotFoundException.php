@@ -1,6 +1,6 @@
 <?php
 
-namespace heinthanth\bare\Routing;
+namespace heinthanth\bare\Routing\Exception;
 
 use Exception;
 

@@ -4,12 +4,9 @@ use heinthanth\bare\Routing\Route;
 
 $route = new Route;
 
-$route->get('/', function () {
-    echo "Hello, World!";
-});
-
-$route->get('/post/{d:\d+}', function () {
-    echo "Hello, Post works!";
+$route->post('/post/{id:\d+}/delete', function ($param) {
+    echo "Get POST data: user => {$_POST['user']}" . PHP_EOL;
+    print_r($param);
 });
 
 return $route;

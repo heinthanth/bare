@@ -14,7 +14,7 @@ final class Route
      * Register a route with GET request method
      * 
      * @param string $uri URI to catch
-     * @param mixed $handler Callback handler to execute if URI matched
+     * @param string|callback $handler Callback handler to execute if URI matched
      * 
      * @return void
      */
@@ -27,7 +27,7 @@ final class Route
      * Register a route with POST request method
      * 
      * @param string $uri URI to catch
-     * @param mixed $handler Callback handler to execute if URI matched
+     * @param string|callback $handler Callback handler to execute if URI matched
      * 
      * @return void
      */
@@ -40,7 +40,7 @@ final class Route
      * Register a route with PUT request method
      * 
      * @param string $uri URI to catch
-     * @param mixed $handler Callback handler to execute if URI matched
+     * @param string|callback $handler Callback handler to execute if URI matched
      * 
      * @return void
      */
@@ -53,7 +53,7 @@ final class Route
      * Register a route with DELETE request method
      * 
      * @param string $uri URI to catch
-     * @param mixed $handler Callback handler to execute if URI matched
+     * @param string|callback $handler Callback handler to execute if URI matched
      * 
      * @return void
      */
@@ -66,7 +66,7 @@ final class Route
      * Register a route with all request method
      * 
      * @param string $uri URI to catch
-     * @param mixed $handler Callback handler to execute if URI matched
+     * @param string|callback $handler Callback handler to execute if URI matched
      * 
      * @return void
      */

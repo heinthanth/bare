@@ -2,6 +2,11 @@
 
 namespace heinthanth\bare\Routing;
 
+use heinthanth\bare\Routing\Exception\CallbackNotExistsException;
+use heinthanth\bare\Routing\Exception\InvalidCallbackException;
+use heinthanth\bare\Routing\Exception\RouteNotFoundException;
+use heinthanth\bare\Routing\Exception\MethodNotAllowedException;
+
 final class Router
 {
     /**
@@ -12,7 +17,7 @@ final class Router
      * 
      * @return void
      */
-    public function dispatch(string $request_uri, string $method): void
+    public function dispatch(string $request_uri, string $method)
     {
         $cachedRoute = $this->cached();
         $route2match = (getenv('CACHE_ROUTE') && $cachedRoute !== null)
@@ -20,9 +25,13 @@ final class Router
             : (require_once __DIR__ . '/../../app/routes/web.php')->list();
         try {
             $info = RouteHandler::match($request_uri, $method, $route2match);
-            print_r($info);
+            try {
+                return CallbackHandler::handleCallback($info['callback'], $info['param']);
+            } catch (InvalidCallbackException | CallbackNotExistsException $e) {
+                return $e->getMessage();
+            }
         } catch (RouteNotFoundException | MethodNotAllowedException $e) {
-            echo $e->getMessage();
+            return $e->getMessage();
         }
     }
 

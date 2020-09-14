@@ -2,6 +2,9 @@
 
 namespace heinthanth\bare\Routing;
 
+use heinthanth\bare\Routing\Exception\RouteNotFoundException;
+use heinthanth\bare\Routing\Exception\MethodNotAllowedException;
+
 final class RouteHandler
 {
     /**
@@ -18,20 +21,47 @@ final class RouteHandler
      */
     public static function match(string $request_uri, string $method, array $routes): array
     {
+        $url = explode("?", $request_uri, 2);
+        $queries = [];
+
+        if (count($url) == 2) {
+            $request_uri = $url[0];
+            $params = explode('&', $url[1]);
+            foreach ($params as $param) {
+                list($k, $v) = explode('=', $param, 2);
+                $queries[$k] = $v;
+            }
+        }
+
         // check in respective routes
         foreach ($routes as $regex => $info) {
             if (preg_match($regex, $request_uri, $matched)) {
+                $variables = [];
+                foreach ($matched as $k => $v) {
+                    if (is_string($k)) {
+                        $variables[$k] = $v;
+                    }
+                }
+
                 if (isset($info[$method])) {
                     return [
                         'uri' => $request_uri,
                         'method' => $method,
-                        'action' => $info[$method]
+                        'param' => [
+                            'variables' => $variables,
+                            'queries' => $queries
+                        ],
+                        'callback' => $info[$method]
                     ];
                 } else if (isset($info['ALL'])) {
                     return [
                         'uri' => $request_uri,
                         'method' => $method,
-                        'action' => $info['ALL']
+                        'param' => [
+                            'variables' => $variables,
+                            'queries' => $queries
+                        ],
+                        'callback' => $info['ALL']
                     ];
                 }
                 throw new MethodNotAllowedException();
