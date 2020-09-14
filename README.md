@@ -26,6 +26,14 @@ Everything is written from scratch. No external dependencies. \
 Just hack it as what you need. I just shipped `bare` with simple regex Router and some utilities.
 
 
+## FAQ
+
+- where is IoC ( dependencies injection )
+    * I'm currently learning about it and will implement later.
+
+- what about customizability?
+    * just hack the core and use as you like!
+
 ## License
 
 The Bare Framework is licensed under the MIT license. See [License](LICENSE) for more information.
