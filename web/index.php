@@ -1,10 +1,25 @@
 <?php
 
-use heinthanth\bare\Routing\Router;
+declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../app/config/bootstrap.php';
+use heinthanth\bare\Core\Bare;
+use Laminas\Diactoros\ServerRequestFactory;
 
-$router = new Router();
+require_once __DIR__ . "/../vendor/autoload.php";
 
-echo $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$request = ServerRequestFactory::fromGlobals(
+    $_SERVER,
+    $_GET,
+    $_POST,
+    $_COOKIE,
+    $_FILES
+);
+
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
+$router = require_once __DIR__ . "/../routes/web.php";
+
+$bare = new Bare();
+$bare->handle($request, $router);

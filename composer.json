@@ -1,19 +1,25 @@
 {
-    "name": "heinthanth/bare",
-    "description": "Simple, Lightweight PHP micro-framework",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Hein Thanth",
-            "email": "me@heinthanth.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app",
-            "heinthanth\\bare\\": "src"
-        }
+  "name": "heinthanth/bare",
+  "description": "Simple, minimal PHP framework for me & you too!",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hein Thanth",
+      "email": "me@heinthanth.com"
     }
+  ],
+  "require": {
+    "league/route": "^4.5",
+    "laminas/laminas-diactoros": "^2.4",
+    "laminas/laminas-httphandlerrunner": "^1.2",
+    "league/plates": "^3.3",
+    "filp/whoops": "^2.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app",
+      "heinthanth\\bare\\": "src"
+    }
+  }
 }
