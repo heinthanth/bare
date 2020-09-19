@@ -2,30 +2,80 @@
 
 namespace heinthanth\bare\Core;
 
+use Jenssegers\Blade\Blade;
+use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\HtmlResponse;
-use Psr\Http\Message\ServerRequestInterface;
-use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use League\Route\Http\Exception;
-use League\Route\Http\Exception\HttpExceptionInterface;
-use Psr\Http\Message\ResponseInterface;
 use League\Route\Router;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
+use Laminas\HttpHandlerRunner\Emitter\EmitterStack;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
+use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
+
+/**
+ * Application class to handle request and emit response.
+ */
 class Bare
 {
-    public function handle(ServerRequestInterface $request, Router $router)
-    {
-        try {
-            $response = $router->dispatch($request);
-        } catch (HttpExceptionInterface $e) {
-            $response = $this->handleRouteException($e);
-        }
+    /**
+     * router instance
+     */
+    private Router $router;
 
-        $emitter = new SapiEmitter();
-        $emitter->emit($response);
+    /**
+     * Set private Router instance
+     */
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
     }
 
-    private function handleRouteException(Exception $e): ResponseInterface
+    /**
+     * Call request handler and middlewares
+     * 
+     * @param RequestInterface $request Request to be handled.
+     * 
+     * @return ResponseInterface
+     */
+    public function handle(RequestInterface $request): ResponseInterface
     {
-        return new HtmlResponse("<h1>{$e->getStatusCode()}</h1><p>{$e->getMessage()}</p>");
+        try {
+            return $this->router->dispatch($request);
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
+    }
+
+    /**
+     * Handle errors such as NotFound, MethodNotAllowed, or other stuffs.
+     */
+    private function handleException(Exception $e): ResponseInterface
+    {
+        $blade = new Blade(__DIR__ . "/../Builtins/views/ErrorPages", __DIR__ . "/../Builtins/views/cache");
+        $html = $blade->render('template', [
+            'code' => $e->getStatusCode()
+        ]);
+        return new HtmlResponse($html);
+    }
+
+    /**
+     * Emit response to browser.
+     * If response is greater than 8kB, use StreamEmitter
+     * 
+     * @return EmitterInterface Emitter Stack
+     */
+    public function emit(ResponseInterface $response)
+    {
+        $sapiStreamEmitter = new SapiStreamEmitter();
+        $conditionalEmitter = new ConditionalEmitter($sapiStreamEmitter);
+
+        $stack = new EmitterStack();
+        $stack->push(new SapiEmitter());
+        $stack->push($conditionalEmitter);
+
+        $stack->emit($response);
     }
 }
