@@ -19,7 +19,7 @@ Currently, under development. Simple `git clone` will help you!
 git clone https://github.com/heinthanth/bare
 cd bare
 composer install
-php -S localhost:8000 -t web
+php -S localhost:8000 -t public
 ```
 
 This will make this repo alive at <http://localhost:8000>
