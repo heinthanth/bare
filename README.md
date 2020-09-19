@@ -1,6 +1,6 @@
 # Bare Framework.
 
-[![MIT LICENSE](https://img.shields.io/github/license/heinthanth/bare)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Simple, minimal PHP framework for me. But, you can use it too! I just put packages together to make a minimal micro-framework.\
 Build on top of open-source PHP packages.
