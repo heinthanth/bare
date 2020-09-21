@@ -2,8 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Simple, minimal PHP framework for me. But, you can use it too! I just put packages together to make a minimal micro-framework.\
-Build on top of open-source PHP packages.
+Simple, lightweight modern PHP without framework. I just put some open-source packages together to make a minimal micro-framework. \
+I accepted challenge from <https://kevinsmith.io/modern-php-without-a-framework>
 
 
 ## Documentation
@@ -28,6 +28,18 @@ This will make this repo alive at <http://localhost:8000>
 ## Core Features
 
 No feature out of the box! - with just router, view engine and other stuffs.
+
+
+## Credits
+
+* PSR-7 Http Message : <https://github.com/laminas/laminas-diactoros>
+* PSR-7 based Router : <https://github.com/thephpleague/route>
+* View Engine : <https://github.com/thephpleague/plates>
+* SAPI emitter : <https://github.com/laminas/laminas-httphandlerrunner>
+* DI container : <https://github.com/silexphp/Pimple>
+* env Parser : <https://github.com/vlucas/phpdotenv>
+* Option Type : <https://github.com/schmittjoh/php-option>
+* Exception Beautifier : <https://github.com/filp/whoops>
 
 
 ## License
