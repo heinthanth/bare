@@ -15,7 +15,7 @@ define('BARE_PROJECT_ROOT', dirname(__DIR__));
 |
 */
 
-$app = new Container();
-$app = $app->bootstrap();
+$container = new Container();
+$app = $container->bootstrap();
 
 return $app['bare'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace heinthanth\bare\Handler;
+namespace heinthanth\bare\Http\Emitter;
 
 use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;

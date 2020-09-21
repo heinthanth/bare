@@ -8,8 +8,9 @@ use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use League\Route\Router;
 use Pimple\Container as PimpleContainer;
 use Dotenv\Dotenv;
-use heinthanth\bare\Handler\ConditionalEmitter;
-use heinthanth\bare\Strategy\BareApplicationStrategy;
+use heinthanth\bare\Http\Emitter\ConditionalEmitter;
+use heinthanth\bare\Strategies\Application;
+use heinthanth\bare\Support\View;
 use Whoops\Handler\PrettyPageHandler;
 
 class Container
@@ -33,14 +34,8 @@ class Container
      */
     public function defineService()
     {
-        $this->container['router'] = function ($c) {
-            $f = BARE_PROJECT_ROOT . "/routes/web.php";
-
-            $r = (new Router())->setStrategy(new BareApplicationStrategy);
-            if (!file_exists($f)) return $r;
-
-            $dunno = require_once $f;
-            return ($dunno instanceof Router) ? $dunno->setStrategy(new BareApplicationStrategy) : $r;
+        $this->container['services'] = function ($c) {
+            return (require_once BARE_PROJECT_ROOT . "/config/services.php");
         };
         $this->container['dotEnv'] = function ($c) {
             if (file_exists(BARE_PROJECT_ROOT . "/.env")) return Dotenv::createImmutable(BARE_PROJECT_ROOT);
@@ -64,10 +59,34 @@ class Container
         $this->container['whoops'] = function ($c) {
             return new \Whoops\Run();
         };
+        $this->container['view'] = function ($c) {
+            return new View();
+        };
         $this->container->extend('whoops', function (\Whoops\RUn $e, $c) {
             $e->pushHandler(new PrettyPageHandler);
             return $e;
         });
+        $this->container['router'] = function ($c) {
+            $globalMiddlewares = $c['services']['middlewares'];
+            $f = BARE_PROJECT_ROOT . "/routes/web.php";
+
+            $strg = new Application;
+
+            $r = new Router();
+            $r->middlewares($globalMiddlewares);
+            $r->setStrategy($strg);
+
+            if (!file_exists($f)) return $r;
+
+            $dunno = require_once $f;
+            if ($dunno instanceof Router) {
+                $dunno->middlewares($globalMiddlewares);
+                $dunno->setStrategy($strg);
+                return $dunno;
+            } else {
+                return $r;
+            }
+        };
         $this->container['bare'] = function ($c) {
             return new Bare($c);
         };

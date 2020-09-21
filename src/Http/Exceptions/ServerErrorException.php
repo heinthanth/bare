@@ -16,6 +16,6 @@ class ServerErrorException extends LeagueHttpException
      */
     public function __construct(string $message = 'Internal Server Error', ?Exception $previous = null, int $code = 0)
     {
-        parent::__construct(400, $message, $previous, [], $code);
+        parent::__construct(500, $message, $previous, [], $code);
     }
 }

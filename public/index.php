@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Laminas\Diactoros\ServerRequestFactory;
 
 define('BARE_START_TIME', microtime(true));
@@ -27,10 +29,10 @@ require_once __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-$app = require_once __DIR__ . "/../config/bootstrap.php";
+$bare = require_once __DIR__ . "/../config/bootstrap.php";
 
 $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
 
-$response = $app->handle($request);
+$response = $bare->handle($request);
 
-$app->send($response);
+$bare->send($response);

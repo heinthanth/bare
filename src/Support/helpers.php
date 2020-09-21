@@ -54,8 +54,8 @@ if (!function_exists('view')) {
      * 
      * @return \Psr\Http\Message\ResponseInterface Response object with HTML strings
      */
-    function view(string $path, array $data = [])
+    function view(string $path, array $data = [], int $statusCode = 200)
     {
-        return new HtmlResponse(render_template($path, $data));
+        return new HtmlResponse(render_template($path, $data), $statusCode);
     }
 }

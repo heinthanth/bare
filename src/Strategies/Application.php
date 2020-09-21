@@ -1,28 +1,28 @@
 <?php
 
-namespace heinthanth\bare\Strategy;
+namespace heinthanth\bare\Strategies;
 
-use heinthanth\bare\Handler\ExceptionResponseHandler;
-use heinthanth\bare\Handler\HttpErrorResponseHandler;
+use heinthanth\bare\Http\ExceptionHandler;
+use heinthanth\bare\Http\RequestHandlerMiddleware;
 use League\Route\Http\Exception\MethodNotAllowedException;
 use League\Route\Http\Exception\NotFoundException;
 use League\Route\Strategy\ApplicationStrategy;
 use Psr\Http\Server\MiddlewareInterface;
 
-class BareApplicationStrategy extends ApplicationStrategy
+class Application extends ApplicationStrategy
 {
     public function getNotFoundDecorator(NotFoundException $exception): MiddlewareInterface
     {
-        return new HttpErrorResponseHandler($exception);
+        return new ExceptionHandler($exception);
     }
 
     public function getMethodNotAllowedDecorator(MethodNotAllowedException $exception): MiddlewareInterface
     {
-        return new HttpErrorResponseHandler($exception);
+        return new ExceptionHandler($exception);
     }
 
     public function getExceptionHandler(): MiddlewareInterface
     {
-        return new ExceptionResponseHandler();
+        return new RequestHandlerMiddleware();
     }
 }
