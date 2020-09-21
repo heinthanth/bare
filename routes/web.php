@@ -1,13 +1,11 @@
 <?php
 
+use heinthanth\bare\Http\Exceptions\ServerErrorException;
+use League\Route\Http\Exception\ForbiddenException;
 use League\Route\Router;
-
-use function heinthanth\bare\Helper\view;
 
 $router = new Router();
 
-$router->get('/', function() {
-    return view('welcome');
-});
+// no routes, will throw 404
 
 return $router;
