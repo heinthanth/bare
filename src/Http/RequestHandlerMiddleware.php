@@ -2,11 +2,11 @@
 
 namespace heinthanth\bare\Http;
 
-use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 
 class RequestHandlerMiddleware implements MiddlewareInterface
 {
@@ -14,7 +14,7 @@ class RequestHandlerMiddleware implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return (new ExceptionHandler($e))->process($request, $handler);
         }
     }

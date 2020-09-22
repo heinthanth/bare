@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Oops! Wrong Method</title>
+    <title>Oops!</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
@@ -24,12 +24,12 @@
             margin: 0;
         }
 
-        #methodnotallowed {
+        #page {
             position: relative;
             height: 100vh;
         }
 
-        #methodnotallowed .methodnotallowed {
+        #page .page {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -38,21 +38,21 @@
             transform: translate(-50%, -50%);
         }
 
-        .methodnotallowed {
+        .page {
             max-width: 520px;
             width: 100%;
             line-height: 1.4;
             text-align: center;
         }
 
-        .methodnotallowed .methodnotallowed-405 {
+        .page .page-info {
             position: relative;
             height: 200px;
             margin: 0px auto 20px;
             z-index: -1;
         }
 
-        .methodnotallowed .methodnotallowed-405 h1 {
+        .page .page-info h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 236px;
             font-weight: 200;
@@ -67,7 +67,7 @@
             transform: translate(-50%, -50%);
         }
 
-        .methodnotallowed .methodnotallowed-405 h2 {
+        .page .page-info h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 28px;
             font-weight: 400;
@@ -83,7 +83,7 @@
             right: 0;
         }
 
-        .methodnotallowed a {
+        .page a {
             font-family: 'Montserrat', sans-serif;
             display: inline-block;
             font-weight: 700;
@@ -97,28 +97,28 @@
             transition: 0.2s all;
         }
 
-        .methodnotallowed a:hover {
+        .page a:hover {
             color: #ff6300;
             background: #211b19;
         }
 
         @media only screen and (max-width: 767px) {
-            .methodnotallowed .methodnotallowed-405 h1 {
+            .page .page-info h1 {
                 font-size: 148px;
             }
         }
 
         @media only screen and (max-width: 480px) {
-            .methodnotallowed .methodnotallowed-405 {
+            .page .page-info {
                 height: 148px;
                 margin: 0px auto 10px;
             }
 
-            .methodnotallowed .methodnotallowed-405 h1 {
+            .page .page-info h1 {
                 font-size: 86px;
             }
 
-            .methodnotallowed .methodnotallowed-405 h2 {
+            .page .page-info h2 {
                 font-size: 16px;
             }
         }
@@ -135,11 +135,11 @@
 
 <body>
 
-    <div id="methodnotallowed">
-        <div class="methodnotallowed">
-            <div class="methodnotallowed-405">
+    <div id="page">
+        <div class="page">
+            <div class="page-info">
                 <h1>Oops!</h1>
-                <h2>405 - Method Not Allowed</h2>
+                <h2><?=$this->e($description)?></h2>
             </div>
         </div>
     </div>
