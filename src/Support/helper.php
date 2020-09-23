@@ -3,34 +3,7 @@
 declare(strict_types=1);
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use heinthanth\bare\Support\{View, Env};
-
-if (!function_exists('value')) {
-    /**
-     * Return the default value of the given value.
-     *
-     * @param  mixed  $value
-     * @return mixed
-     */
-    function value($value)
-    {
-        return $value instanceof Closure ? $value() : $value;
-    }
-}
-
-if (!function_exists('env')) {
-    /**
-     * Gets the value of an environment variable.
-     *
-     * @param string $needle
-     * @param mixed $default
-     * @return mixed
-     */
-    function env(string $needle, $default = null)
-    {
-        return Env::get($needle, $default);
-    }
-}
+use heinthanth\bare\Support\View;
 
 if (!function_exists('arr_get')) {
     /**

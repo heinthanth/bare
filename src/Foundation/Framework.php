@@ -14,6 +14,7 @@ use League\Route\Router;
 use heinthanth\bare\Strategies\HtmlForm;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Framework
 {
@@ -58,9 +59,27 @@ class Framework
             $run->pushHandler(new PrettyPageHandler);
             return $run;
         });
+        # eloquent orm
+        $this->container->add(Capsule::class, function () {
+            $capsule = new Capsule();
+            $capsule->addConnection([
+                'driver' => env('DB_CONNECTION', 'mysql'),
+                'host' => env('DB_HOST', '127.0.0.1'),
+                'port' => env('DB_PORT', 3306),
+                'database' => env('DB_DATABASE', 'bare'),
+                'username' => env('DB_USERNAME', 'root'),
+                'password' => env('DB_PASSWORD', ''),
+                'charset'   => env('DB_CHARSET', 'utf8mb4'),
+                'collation' => env('DB_COLLATION', 'utf8mb4_general_ci'),
+                'prefix' => env('DATABASE_PREFIX', '')
+            ]);
+            return $capsule;
+        });
         # router
         $this->container->add(Router::class, function () {
-            $middlewares = is_array(Services::get('middlewares')) ? Services::get('middlewares') : [];
+            $middlewares = Services::get('middlewares');
+            if (!is_array($middlewares)) $middlewares = [];
+
             $routeFile = BARE_PROJECT_ROOT . "/routes/web.php";
 
             $strg = new HtmlForm;
@@ -88,6 +107,9 @@ class Framework
     {
         $this->defineService();
         $this->container->get(Dotenv::class)->load();
+        $capsule = $this->container->get(Capsule::class);
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
         $this->container->get(Run::class)->register();
     }
 
