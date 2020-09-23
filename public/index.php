@@ -33,6 +33,8 @@ $bare = require_once __DIR__ . "/../config/bootstrap.php";
 
 $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
 
+# dispatch request to response
 $response = $bare->handle($request);
 
+# send response
 $bare->send($response);

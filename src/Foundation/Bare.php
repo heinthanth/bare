@@ -2,37 +2,44 @@
 
 namespace heinthanth\bare\Foundation;
 
-use Pimple\Container as PimpleContainer;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Laminas\HttpHandlerRunner\Emitter\EmitterStack;
+use League\Route\Router;
+use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
 class Bare
 {
     /**
-     * Pimple container instance
-     * @var \Pimple\Container
+     * Router instance
+     * @var \League\Route\Router
      */
-    private PimpleContainer $container;
+    private Router $router;
 
     /**
-     * Get pimple container instance
-     * @param \Pimple\Container $container
+     * Emitter Stack instance
+     * @var \Laminas\HttpHandlerRunner\Emitter\EmitterStack
      */
-    public function __construct(PimpleContainer $container)
+    private EmitterStack $emitterStack;
+
+    /**
+     * Get router instance.
+     */
+    public function __construct(Router $router, EmitterStack $emitterStack)
     {
-        $this->container = $container;
+        $this->router = $router;
+        $this->emitterStack = $emitterStack;
     }
 
-    public function handle(ServerRequestInterface $request)
+    /**
+     * dispatch Http Request into Response
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function handle(RequestInterface $request): ResponseInterface
     {
-        try {
-            return $this->container['router']->dispatch($request);
-        } catch (\League\Route\Http\Exception $e) {
-        }
+        return $this->router->dispatch($request);
     }
 
     public function send(ResponseInterface $response)
     {
-        $this->container['emitterStack']->emit($response);
+        $this->emitterStack->emit($response);
     }
 }

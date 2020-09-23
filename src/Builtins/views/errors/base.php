@@ -139,7 +139,7 @@
         <div class="page">
             <div class="page-info">
                 <h1>Oops!</h1>
-                <h2><?=$this->e($description)?></h2>
+                <h2><?= $this->e($description) ?></h2>
             </div>
         </div>
     </div>

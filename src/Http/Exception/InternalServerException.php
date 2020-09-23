@@ -1,11 +1,9 @@
 <?php
 
-namespace heinthanth\bare\Http\Exceptions;
-
 use League\Route\Http\Exception as LeagueHttpException;
 use Exception;
 
-class ServerErrorException extends LeagueHttpException
+class InternalServerException extends LeagueHttpException
 {
     /**
      * Constructor

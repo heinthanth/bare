@@ -36,7 +36,7 @@ No feature out of the box! - with just router, view engine and other stuffs.
 * PSR-7 based Router : <https://github.com/thephpleague/route>
 * View Engine : <https://github.com/thephpleague/plates>
 * SAPI emitter : <https://github.com/laminas/laminas-httphandlerrunner>
-* DI container : <https://github.com/silexphp/Pimple>
+* DI container : <https://github.com/thephpleague/container>
 * env Parser : <https://github.com/vlucas/phpdotenv>
 * Option Type : <https://github.com/schmittjoh/php-option>
 * Exception Beautifier : <https://github.com/filp/whoops>

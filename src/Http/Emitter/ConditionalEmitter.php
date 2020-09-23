@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace heinthanth\bare\Http\Emitter;
 
-use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
-use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
+use Laminas\HttpHandlerRunner\Emitter\{EmitterInterface, SapiStreamEmitter};
 use Psr\Http\Message\ResponseInterface;
 
 class ConditionalEmitter implements EmitterInterface
