@@ -10,6 +10,7 @@ class View
     {
         $engine = new Engine(BARE_PROJECT_ROOT . "/frontend/views");
         $engine->addFolder('__builtin', __DIR__ . "/../Builtins/views");
+        $engine->addFolder('__builtin_stub', __DIR__ . "/../Builtins/templates");
         return $engine;
     }
 

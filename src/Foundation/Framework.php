@@ -100,6 +100,13 @@ class Framework
 
             return $router;
         });
+        # console component
+        $this->container->add(Console::class, function () {
+            $c = new Console;
+            $c->bootstrap();
+            return $c;
+        });
+        # actual application
         $this->container->add(Bare::class)->addArgument(Router::class)->addArgument(EmitterStack::class);
     }
 

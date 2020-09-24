@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use heinthanth\bare\Foundation\{Framework, Bare};
+use heinthanth\bare\Foundation\Framework;
 
 define('BARE_PROJECT_ROOT', dirname(__DIR__));
 
@@ -19,4 +19,4 @@ define('BARE_PROJECT_ROOT', dirname(__DIR__));
 
 $container = (new Framework)->bootstrap();
 
-return $container->get(Bare::class);
+return $container;

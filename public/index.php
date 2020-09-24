@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use heinthanth\bare\Foundation\Bare;
 use Laminas\Diactoros\ServerRequestFactory;
 
 define('BARE_START_TIME', microtime(true));
@@ -29,7 +30,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-$bare = require_once __DIR__ . "/../config/bootstrap.php";
+$app = require_once __DIR__ . "/../config/bootstrap.php";
+$bare = $app->get(Bare::class);
 
 $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
 

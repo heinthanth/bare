@@ -11,6 +11,12 @@ I accepted challenge from <https://kevinsmith.io/modern-php-without-a-framework>
 Will document later. You'll have to know about PSR (PHP Standards Recommendations).
 
 
+## Known Issues
+
+Because of using Laravel Eloquent ORM, project was mixed with some of Laravel's Facade classes. But, they won't work.\
+I mean there's a Hash class, but if you try `Hash::make("Hello")`, then, it'll throw Exception about Facade root. Sorry for such inconvenience.
+
+
 ## Installation
 
 Currently, under development. Simple `git clone` will help you!
@@ -40,9 +46,9 @@ No feature out of the box! - with just router, view engine and other stuffs.
 * env Parser : <https://github.com/vlucas/phpdotenv>
 * Option Type : <https://github.com/schmittjoh/php-option>
 * Exception Beautifier : <https://github.com/filp/whoops>
-
+* DataBase ORM : <https://github.com/illuminate/database>
+* Console : <http://github.com/symfony/console>
 
 ## License
 
 The Bare Framework is licensed under the MIT license. See [License](LICENSE) for more information.
-
