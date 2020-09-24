@@ -18,6 +18,7 @@ class CreateMigration extends Command
 
     protected function configure()
     {
+        $this->setDescription('Create a new migration file')->setHelp('create migration into database/migrations with format of create_name_table.php');
         $this->addArgument('table', InputArgument::REQUIRED, 'table name for migration')
             ->setHelp('table name to create Schema');
     }
