@@ -25,6 +25,7 @@ Currently, under development. Simple `git clone` will help you!
 git clone https://github.com/heinthanth/bare
 cd bare
 composer install
+cp .env.example .env
 php -S localhost:8000 -t public
 ```
 
@@ -44,10 +45,9 @@ No feature out of the box! - with just router, view engine and other stuffs.
 * SAPI emitter : <https://github.com/laminas/laminas-httphandlerrunner>
 * DI container : <https://github.com/thephpleague/container>
 * env Parser : <https://github.com/vlucas/phpdotenv>
-* Option Type : <https://github.com/schmittjoh/php-option>
-* Exception Beautifier : <https://github.com/filp/whoops>
 * DataBase ORM : <https://github.com/illuminate/database>
-* Console : <http://github.com/symfony/console>
+* Logger : <https://github.com/Seldaek/monolog>
+
 
 ## License
 

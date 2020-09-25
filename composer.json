@@ -10,20 +10,19 @@
     }
   ],
   "require": {
-    "league/container": "^3.3",
     "league/route": "^4.5",
+    "league/container": "^3.3",
+    "league/plates": "^3.3",
+    "illuminate/database": "^8.6",
+    "vlucas/phpdotenv": "^5.2",
     "laminas/laminas-diactoros": "^2.4",
     "laminas/laminas-httphandlerrunner": "^1.2",
-    "vlucas/phpdotenv": "^5.2",
-    "filp/whoops": "^2.7",
-    "league/plates": "^3.3",
-    "phpoption/phpoption": "^1.7",
-    "illuminate/database": "^8.6"
+    "monolog/monolog": "^2.1"
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/",
-      "heinthanth\\bare\\": "src/"
+      "heinthanth\\bare\\": "src/",
+      "App\\": "app"
     },
     "files": [
       "src/Support/helper.php"

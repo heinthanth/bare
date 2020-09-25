@@ -4,9 +4,9 @@ namespace heinthanth\bare\Support;
 
 class Services
 {
-    public static function loads()
+    private static function loads()
     {
-        $services = (require_once BARE_PROJECT_ROOT . "/config/services.php");
+        $services = (require_once BARE_PROJECT_ROOT . "/config/app.php");
         return (is_array($services)) ? $services : [];
     }
 

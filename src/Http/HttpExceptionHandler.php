@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace heinthanth\bare\Http;
 
 use League\Route\Http\Exception;
+use Monolog\Logger;
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
 use Throwable;
@@ -18,11 +17,18 @@ class HttpExceptionHandler implements MiddlewareInterface
     protected $exception;
 
     /**
+     * Logger instance
+     * @var \Monolog\Logger
+     */
+    protected Logger $logger;
+
+    /**
      * Get throwable
      */
-    public function __construct(Throwable $exception)
+    public function __construct(Throwable $exception, Logger $logger)
     {
         $this->exception = $exception;
+        $this->logger = $logger;
     }
 
     public function handle(): ResponseInterface
@@ -44,6 +50,7 @@ class HttpExceptionHandler implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $this->logger->error($this->exception);
         return $this->handle();
     }
 }

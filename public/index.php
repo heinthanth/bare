@@ -1,42 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
 use heinthanth\bare\Foundation\Bare;
 use Laminas\Diactoros\ServerRequestFactory;
 
-define('BARE_START_TIME', microtime(true));
-
 /*
 |--------------------------------------------------------------------------
-| Register The Auto Loader
+| Run The Application
 |--------------------------------------------------------------------------
 |
-| Composer provides a convenient, automatically generated class loader for
-| this application. We just need to utilize it! We'll simply require it
-| into the script here so we don't need to manually load our classes.
-|
-*/
-
-require_once __DIR__ . "/../vendor/autoload.php";
-
-
-/*
-| ----------------------------------------
-| Run applications
-| ----------------------------------------
-| handle ServerRequest into Response. and
-| Send response to browser using EmitterStack.
+| Once we have the application, we can handle the incoming request and send the response back
+| to this client's browser, allowing them to enjoy our application.
 |
 */
 
 $app = require_once __DIR__ . "/../config/bootstrap.php";
-$bare = $app->get(Bare::class);
 
 $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
 
-# dispatch request to response
-$response = $bare->handle($request);
-
-# send response
-$bare->send($response);
+# dispatch request into response and sent to browser
+$app->get(Bare::class)->handle($request)->send();

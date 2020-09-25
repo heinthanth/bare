@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Laminas\Diactoros\Response\HtmlResponse;
 use heinthanth\bare\Support\View;
 

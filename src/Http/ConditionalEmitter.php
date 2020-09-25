@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-namespace heinthanth\bare\Http\Emitter;
+namespace heinthanth\bare\Http;
 
 use Laminas\HttpHandlerRunner\Emitter\{EmitterInterface, SapiStreamEmitter};
 use Psr\Http\Message\ResponseInterface;
@@ -21,9 +19,9 @@ class ConditionalEmitter implements EmitterInterface
 
     /**
      * use just emitter if no 'Content-Disposition' & 'Content-Range' headers.
-     * 
+     *
      * @param ResponseInterface $response
-     * 
+     *
      * @return bool
      */
     public function emit(ResponseInterface $response): bool

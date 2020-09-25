@@ -3,8 +3,10 @@
 namespace heinthanth\bare\Foundation;
 
 use Laminas\HttpHandlerRunner\Emitter\EmitterStack;
+use Laminas\HttpHandlerRunner\Exception\EmitterException;
 use League\Route\Router;
-use Psr\Http\Message\{RequestInterface, ResponseInterface};
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class Bare
 {
@@ -15,31 +17,48 @@ class Bare
     private Router $router;
 
     /**
-     * Emitter Stack instance
+     * Emitter stack instance
      * @var \Laminas\HttpHandlerRunner\Emitter\EmitterStack
      */
-    private EmitterStack $emitterStack;
+    private EmitterStack $emitter;
 
     /**
-     * Get router instance.
+     * Response instance to sent
+     * @var \Psr\Http\Message\ResponseInterface
+     */
+    private ResponseInterface $response;
+
+    /**
+     * constrctor for DI
+     * @param \League\Route\Router $router
+     * @param \Laminas\HttpHandlerRunner\Emitter\EmitterStack $emitterStack
      */
     public function __construct(Router $router, EmitterStack $emitterStack)
     {
         $this->router = $router;
-        $this->emitterStack = $emitterStack;
+        $this->emitter = $emitterStack;
     }
 
     /**
-     * dispatch Http Request into Response
-     * @return \Psr\Http\Message\ResponseInterface
+     * Handle request
+     * @param \Psr\Http\Message\RequestInterface $request
+     * 
+     * @return \heinthanth\bare\Foundation\Bare
      */
-    public function handle(RequestInterface $request): ResponseInterface
+    public function handle(RequestInterface $request): Bare
     {
-        return $this->router->dispatch($request);
+        $this->response = $this->router->dispatch($request);
+        return $this;
     }
 
-    public function send(ResponseInterface $response)
+    /**
+     * Emit response to Browser
+     */
+    public function send()
     {
-        $this->emitterStack->emit($response);
+        try {
+            $this->emitter->emit($this->response);
+        } catch (EmitterException $e) {
+        }
     }
 }
